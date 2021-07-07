@@ -3,13 +3,13 @@ const path = require('path');
 const _ = require('underscore');
 const counter = require('./counter');
 
-var items = {};
+var items = {}; // [0,1,2,3]['1']
 
 // Public API - Fix these CRUD functions ///////////////////////////////////////
 
 exports.create = (text, callback) => {
-  var id = counter.getNextUniqueId();
-  items[id] = text;
+  var id = counter.getNextUniqueId(); // "00001"
+  items[id] = text; // {'00001': text}
   callback(null, { id, text });
 };
 

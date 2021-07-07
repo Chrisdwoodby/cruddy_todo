@@ -12,7 +12,7 @@ var counter = 0;
 // https://www.google.com/search?q=what+is+a+zero+padded+number%3F
 
 const zeroPaddedNumber = (num) => {
-  return sprintf('%05d', num);
+  return sprintf('%05d', num); //'  5'
 };
 
 const readCounter = (callback) => {
@@ -26,7 +26,7 @@ const readCounter = (callback) => {
 };
 
 const writeCounter = (count, callback) => {
-  var counterString = zeroPaddedNumber(count);
+  var counterString = zeroPaddedNumber(count); //'0005'
   fs.writeFile(exports.counterFile, counterString, (err) => {
     if (err) {
       throw ('error writing counter');
@@ -38,9 +38,19 @@ const writeCounter = (count, callback) => {
 
 // Public API - Fix this function //////////////////////////////////////////////
 
-exports.getNextUniqueId = () => {
-  counter = counter + 1;
-  return zeroPaddedNumber(counter);
+exports.getNextUniqueId = (callback) => {
+  // I: we take number if there is a number - err
+  // O: function call with string return
+  // call readcounter
+  readCounter((err, county) => {
+    writeCounter(county + 1, (err, id) => {
+      callback(err, id)
+    }
+  )})
+  // read will throw an error and set the counter to 0 if an error occurs --- write
+  // increment
+  // counter = counter + 1;
+  // return zeroPaddedNumber(counter); // "00005"
 };
 
 
