@@ -42,11 +42,22 @@ exports.getNextUniqueId = (callback) => {
   // I: we take number if there is a number - err
   // O: function call with string return
   // call readcounter
+
+
   readCounter((err, county) => {
-    writeCounter(county + 1, (err, id) => {
-      callback(err, id)
+    writeCounter(county + 1, (err, zeroPaddedNumber) => {
+      callback(err, zeroPaddedNumber)
     }
   )})
+
+  // readCounter((err, oldCounter) => {
+  //   var newCounter = oldCounter + 1;
+  //   writeCounter(newCounter, (err, zeroPaddedNumber) => {
+  //     callback(err, zeroPaddedNumber);
+  //   })
+  // })
+
+
   // read will throw an error and set the counter to 0 if an error occurs --- write
   // increment
   // counter = counter + 1;

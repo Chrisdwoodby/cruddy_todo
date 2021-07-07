@@ -17,10 +17,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, './public')));
 
 // RESTful Routes for CRUD operations //////////////////////////////////////////
-
+// console.log('here it is', (__dirname))
 // Create (Crud) -- collection route
 app.post('/todo', (req, res) => {
-  Todo.create(req.body.todoText, (err, newTodo) => {
+  Todo.create(req.body.todoText, (err, newTodo) => { // refers to callback
     if (err) {
       res.sendStatus(400);
     } else {
@@ -75,7 +75,7 @@ app.delete('/todo/:id', (req, res) => {
 
 // Start & Initialize Web Server ///////////////////////////////////////////////
 
-const port = 3001;
+const port = 3006;
 app.listen(port, () => {
   console.log('CRUDdy Todo server is running in the terminal');
   console.log(`To get started, visit: http://localhost:${port}`);

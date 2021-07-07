@@ -6,11 +6,18 @@ const counter = require('./counter');
 var items = {}; // [0,1,2,3]['1']
 
 // Public API - Fix these CRUD functions ///////////////////////////////////////
-
+// console.log('got it       ', __dirname);
 exports.create = (text, callback) => {
-  var id = counter.getNextUniqueId(); // "00001"
-  items[id] = text; // {'00001': text}
-  callback(null, { id, text });
+  counter.getNextUniqueId((err, id) => {
+    var filepath = path.join(exports.dataDir, `${id}.txt`);
+    fs.writeFile(filepath, text, (err) => {
+      if (err) {
+        callback(err);
+      } else {
+        callback(null, {id, text});
+      }
+    });
+  });
 };
 
 exports.readAll = (callback) => {
